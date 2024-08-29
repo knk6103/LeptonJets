@@ -75,7 +75,7 @@ void calibAccelGyro()
     readAccelGyro();
     sumAcX += AcX; sumAcY += AcY; sumAcZ += AcZ;
     sumGyX += GyX; sumGyY += GyY; sumGyZ += GyZ;
-    delay(100);//0.1珥�
+    delay(100);//0.1초
   }
   //맨 처음 기본 센서 값들을 보여지고 그다음에 평균값을 구하는 함수
   baseAcX = sumAcX / 10;
