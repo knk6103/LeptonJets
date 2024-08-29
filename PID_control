@@ -157,17 +157,20 @@ float gyro_x, gyro_y, gyro_z;
 void calcGyroYPR()
 {
   const float GYROXYZ_TO_DEGREES_PER_SEC = 131; // 가속도를 저장하는 변수
-
+#각속도로 변환하기
   gyro_x = (GyX - baseGyX) / GYROXYZ_TO_DEGREES_PER_SEC;
   gyro_y = (GyY - baseGyY) / GYROXYZ_TO_DEGREES_PER_SEC;
   gyro_z = (GyZ - baseGyZ) / GYROXYZ_TO_DEGREES_PER_SEC;
-
+#현재 각속도에 단위 시간을 곱해서 누적
  // gyro_angle_x += gyro_x * dt;
  // gyro_angle_y += gyro_y * dt;
  // gyro_angle_z += gyro_z * dt;
  /*주석을 하는 이유
   * 이 부분은 자이로 센서 자체적으로 회전각을 구하는 부분,
   * 이제는 PID 제어를 통해 회전각을 구할 것이다.
+  * 1초단 250'를 돌게 된다면 자이로 값은 131임. 
+  * 매번 드론이 1초당 일정하게 얼마의 속도로 회전하라는 법은 없음. 
+  * 따라서 매번 단위 시간을 각속도로 곱해줄 필요가 있음. 
   */
 }
 
@@ -192,7 +195,7 @@ void stdPID(float& setpoint, float& input, float& prev_input, float& kp, float& 
   float dInput;
   float pterm, dterm;
 
-  error = setpoint - input; 
+  error = setpoint - input; #설정값(setpoint)에서 현재 입력 값(input)을 빼서 현재 오차(error)를 구함
   dInput = input - prev_input;
   prev_input = input;
 
